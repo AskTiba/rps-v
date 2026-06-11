@@ -23,7 +23,7 @@
   --fw-600: 600;
   --fw-700: 700;
   --circle-size: 7.5rem;
-  --reveal-circle-size: max(calc(50vw - 3rem), var(--circle-size));
+  --reveal-circle-size: max(calc(50vw - 3.5rem), var(--circle-size));
 }
 
 *,
