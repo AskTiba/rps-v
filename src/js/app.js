@@ -1,6 +1,19 @@
 const rulesBtn = document.getElementById('rules-btn');
 const rulesOverlay = document.getElementById('rules-overlay');
 const rulesClose = document.getElementById('rules-close');
+const rulesImage = document.getElementById('rules-image');
+const modeToggle = document.getElementById('mode-toggle');
+const logoImg = document.getElementById('logo-img');
+const logoContainer = document.getElementById('logo-container');
+const choicesEl = document.getElementById('choices');
+const revealSection = document.getElementById('reveal');
+const userChoiceContainer = document.getElementById('user-choice');
+const houseChoiceContainer = document.getElementById('house-choice');
+const resultDisplay = document.getElementById('result-display');
+const resultText = document.getElementById('result-text');
+const playAgainBtn = document.getElementById('play-again');
+const scoreElement = document.getElementById('score');
+const gameEl = document.querySelector('.game');
 
 function openRules() {
   rulesOverlay.classList.remove('hidden');
@@ -24,43 +37,113 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-const choiceBtns = document.querySelectorAll('.choice[data-move]');
-const choicesSection = document.getElementById('choices');
-const revealSection = document.getElementById('reveal');
-const userChoiceContainer = document.getElementById('user-choice');
-const houseChoiceContainer = document.getElementById('house-choice');
-const resultDisplay = document.getElementById('result-display');
-const resultText = document.getElementById('result-text');
-const playAgainBtn = document.getElementById('play-again');
-const scoreElement = document.getElementById('score');
-
 const CHOICE_CONFIG = {
-  paper: {
-    className: 'choice--paper',
-    icon: 'assets/images/icon-paper.svg',
-    label: 'Paper',
+  paper:     { className: 'choice--paper',     icon: 'assets/images/icon-paper.svg',     label: 'Paper' },
+  scissors:  { className: 'choice--scissors',  icon: 'assets/images/icon-scissors.svg',  label: 'Scissors' },
+  rock:      { className: 'choice--rock',      icon: 'assets/images/icon-rock.svg',      label: 'Rock' },
+  lizard:    { className: 'choice--lizard',    icon: 'assets/images/icon-lizard.svg',    label: 'Lizard' },
+  spock:     { className: 'choice--spock',     icon: 'assets/images/icon-spock.svg',     label: 'Spock' },
+};
+
+const MODES = {
+  original: {
+    moves: ['paper', 'scissors', 'rock'],
+    rules: { paper: ['rock'], rock: ['scissors'], scissors: ['paper'] },
+    bg: 'assets/images/bg-triangle.svg',
+    logo: 'assets/images/logo.svg',
+    rulesImg: 'assets/images/image-rules.svg',
+    ariaLabel: 'Rock Paper Scissors',
+    storageKey: 'rps-score',
+    modeBtnText: 'BONUS',
   },
-  scissors: {
-    className: 'choice--scissors',
-    icon: 'assets/images/icon-scissors.svg',
-    label: 'Scissors',
-  },
-  rock: {
-    className: 'choice--rock',
-    icon: 'assets/images/icon-rock.svg',
-    label: 'Rock',
+  bonus: {
+    moves: ['scissors', 'paper', 'rock', 'lizard', 'spock'],
+    rules: {
+      scissors: ['paper', 'lizard'],
+      paper: ['rock', 'spock'],
+      rock: ['lizard', 'scissors'],
+      lizard: ['spock', 'paper'],
+      spock: ['scissors', 'rock'],
+    },
+    bg: 'assets/images/bg-pentagon.svg',
+    logo: 'assets/images/logo-bonus.svg',
+    rulesImg: 'assets/images/image-rules-bonus.svg',
+    ariaLabel: 'Rock Paper Scissors Lizard Spock',
+    storageKey: 'rpsls-score',
+    modeBtnText: 'CLASSIC',
   },
 };
 
-const MOVES = ['paper', 'scissors', 'rock'];
-const RULES = { paper: 'rock', rock: 'scissors', scissors: 'paper' };
 const MESSAGES = { win: 'You Win', lose: 'You Lose', draw: 'Draw' };
 
+let currentMode = 'original';
 let isPlaying = false;
 let houseTimeout = null;
 let resultTimeout = null;
-let score = parseInt(localStorage.getItem('rps-score') || '0', 10);
-scoreElement.textContent = score;
+let score = 0;
+
+function loadScore() {
+  score = parseInt(localStorage.getItem(MODES[currentMode].storageKey) || '0', 10);
+  scoreElement.textContent = score;
+}
+
+function saveScore() {
+  localStorage.setItem(MODES[currentMode].storageKey, String(score));
+}
+
+function renderChoices() {
+  const mode = MODES[currentMode];
+  choicesEl.classList.toggle('choices--pentagon', currentMode === 'bonus');
+
+  choicesEl.innerHTML = '';
+
+  const bg = document.createElement('img');
+  bg.className = 'choices__triangle';
+  bg.src = mode.bg;
+  bg.alt = '';
+  bg.setAttribute('aria-hidden', 'true');
+  choicesEl.appendChild(bg);
+
+  for (const move of mode.moves) {
+    const config = CHOICE_CONFIG[move];
+    const btn = document.createElement('button');
+    btn.className = `choice ${config.className}`;
+    btn.dataset.move = move;
+    btn.setAttribute('aria-label', config.label);
+    btn.addEventListener('click', () => playRound(move));
+
+    const icon = document.createElement('span');
+    icon.className = 'choice__icon';
+
+    const img = document.createElement('img');
+    img.src = config.icon;
+    img.alt = config.label;
+    img.draggable = false;
+
+    icon.appendChild(img);
+    btn.appendChild(icon);
+    choicesEl.appendChild(btn);
+  }
+}
+
+function setupMode() {
+  const mode = MODES[currentMode];
+  gameEl.classList.toggle('game--bonus', currentMode === 'bonus');
+  modeToggle.textContent = mode.modeBtnText;
+  logoImg.src = mode.logo;
+  logoContainer.setAttribute('aria-label', mode.ariaLabel);
+  rulesImage.src = mode.rulesImg;
+  renderChoices();
+  loadScore();
+}
+
+function toggleMode() {
+  if (isPlaying) return;
+  currentMode = currentMode === 'original' ? 'bonus' : 'original';
+  setupMode();
+}
+
+modeToggle.addEventListener('click', toggleMode);
 
 function createChoiceCircle(move) {
   const config = CHOICE_CONFIG[move];
@@ -79,12 +162,14 @@ function createChoiceCircle(move) {
 }
 
 function getRandomMove() {
-  return MOVES[Math.floor(Math.random() * MOVES.length)];
+  const moves = MODES[currentMode].moves;
+  return moves[Math.floor(Math.random() * moves.length)];
 }
 
 function getResult(player, house) {
+  const rules = MODES[currentMode].rules;
   if (player === house) return 'draw';
-  if (RULES[player] === house) return 'win';
+  if (rules[player].includes(house)) return 'win';
   return 'lose';
 }
 
@@ -92,14 +177,14 @@ function updateScore(result) {
   if (result === 'win') score++;
   if (result === 'lose') score = Math.max(0, score - 1);
   scoreElement.textContent = score;
-  localStorage.setItem('rps-score', String(score));
+  saveScore();
 }
 
 function playRound(playerMove) {
   if (isPlaying) return;
   isPlaying = true;
 
-  choicesSection.classList.add('hidden');
+  choicesEl.classList.add('hidden');
   revealSection.classList.remove('hidden');
 
   requestAnimationFrame(() => {
@@ -163,7 +248,7 @@ function resetGame() {
     resultTimeout = null;
   }
   isPlaying = false;
-  choicesSection.classList.remove('hidden');
+  choicesEl.classList.remove('hidden');
   revealSection.classList.add('hidden');
   revealSection.style.top = '';
   resultDisplay.style.paddingTop = '';
@@ -173,8 +258,6 @@ function resetGame() {
   resultDisplay.classList.remove('show');
 }
 
-choiceBtns.forEach((btn) => {
-  btn.addEventListener('click', () => playRound(btn.dataset.move));
-});
-
 playAgainBtn.addEventListener('click', resetGame);
+
+setupMode();

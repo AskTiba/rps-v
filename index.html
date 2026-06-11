@@ -13,8 +13,11 @@
 <body>
   <div class="game" role="main">
     <header class="scoreboard">
-      <div class="scoreboard__logo" aria-label="Rock Paper Scissors">
-        <img src="assets/images/logo.svg" alt="">
+      <div class="scoreboard__left">
+        <div class="scoreboard__logo" aria-label="Rock Paper Scissors" id="logo-container">
+          <img src="assets/images/logo.svg" alt="" id="logo-img">
+        </div>
+        <button class="btn btn--mode" id="mode-toggle">BONUS</button>
       </div>
       <div class="scoreboard__score">
         <span class="scoreboard__label">Score</span>
@@ -23,24 +26,7 @@
     </header>
 
     <section class="game-board" id="game-board" aria-label="Game board">
-      <div class="choices" id="choices" role="group" aria-label="Choose your move">
-        <button class="choice choice--paper" data-move="paper">
-          <span class="choice__icon">
-            <img src="assets/images/icon-paper.svg" alt="Paper">
-          </span>
-        </button>
-        <button class="choice choice--scissors" data-move="scissors">
-          <span class="choice__icon">
-            <img src="assets/images/icon-scissors.svg" alt="Scissors">
-          </span>
-        </button>
-        <button class="choice choice--rock" data-move="rock">
-          <span class="choice__icon">
-            <img src="assets/images/icon-rock.svg" alt="Rock">
-          </span>
-        </button>
-        <img class="choices__triangle" src="assets/images/bg-triangle.svg" alt="" aria-hidden="true">
-      </div>
+      <div class="choices" id="choices" role="group" aria-label="Choose your move"></div>
       <div class="reveal hidden" id="reveal">
         <div class="reveal__column">
           <div class="reveal__choice" id="user-choice"></div>
