@@ -507,7 +507,8 @@ body {
   }
 
   .reveal {
-    justify-content: space-around;
+    justify-content: center;
+    gap: max(2rem, calc(100% / 3 - var(--reveal-circle-size)));
     padding-top: 5rem;
   }
 
