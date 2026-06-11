@@ -18,6 +18,8 @@
   --font: 'Barlow Semi Condensed', sans-serif;
   --fw-600: 600;
   --fw-700: 700;
+  --circle-size: 7.5rem;
+  --reveal-circle-size: var(--circle-size);
 }
 
 *,
@@ -111,9 +113,8 @@ body {
 
 .choices {
   position: relative;
-  width: 270px;
-  height: 240px;
-  margin-top: -9rem;
+  width: calc(var(--circle-size) * 2.25);
+  height: calc(var(--circle-size) * 2);
 }
 
 .choices__triangle {
@@ -130,8 +131,8 @@ body {
    ============================================= */
 .choice {
   position: absolute;
-  width: 7.5rem;
-  height: 7.5rem;
+  width: var(--circle-size);
+  height: var(--circle-size);
   border-radius: 50%;
   border: none;
   cursor: pointer;
@@ -150,35 +151,35 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(100% - 14px);
-  height: calc(100% - 14px);
+  width: calc(100% - var(--circle-size) * 0.2);
+  height: calc(100% - var(--circle-size) * 0.2);
   border-radius: 50%;
   background: var(--white);
   box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
 .choice__icon img {
-  width: 2.25rem;
+  width: calc(var(--circle-size) * 0.3);
   height: auto;
   pointer-events: none;
 }
 
 .choice--paper {
-  top: -0.75rem;
-  left: -0.75rem;
+  top: calc(var(--circle-size) * -0.1);
+  left: calc(var(--circle-size) * -0.1);
   background: linear-gradient(150deg, var(--blue-500), var(--blue-700));
   box-shadow: 0 5px 0 hsl(230, 70%, 40%), 0 8px 0 hsla(0, 0%, 0%, 0.2);
 }
 
 .choice--scissors {
-  top: -0.75rem;
-  right: -0.75rem;
+  top: calc(var(--circle-size) * -0.1);
+  right: calc(var(--circle-size) * -0.1);
   background: linear-gradient(150deg, var(--gold-500), var(--gold-600));
   box-shadow: 0 5px 0 hsl(28, 70%, 35%), 0 8px 0 hsla(0, 0%, 0%, 0.2);
 }
 
 .choice--rock {
-  bottom: -0.75rem;
+  bottom: calc(var(--circle-size) * -0.1);
   left: 50%;
   transform: translateX(-50%);
   background: linear-gradient(150deg, var(--red-600), var(--red-800));
@@ -215,8 +216,8 @@ body {
 }
 
 .reveal__choice {
-  width: 7.5rem;
-  height: 7.5rem;
+  width: var(--reveal-circle-size);
+  height: var(--reveal-circle-size);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -229,6 +230,8 @@ body {
 }
 
 .reveal__choice .choice {
+  width: var(--reveal-circle-size);
+  height: var(--reveal-circle-size);
   position: static;
   top: auto;
   right: auto;
@@ -246,15 +249,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(100% - 14px);
-  height: calc(100% - 14px);
+  width: calc(100% - var(--reveal-circle-size) * 0.2);
+  height: calc(100% - var(--reveal-circle-size) * 0.2);
   border-radius: 50%;
   background: var(--white);
   box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
 .reveal__choice .choice__icon img {
-  width: 2.25rem;
+  width: calc(var(--reveal-circle-size) * 0.3);
   height: auto;
   pointer-events: none;
 }
@@ -382,6 +385,11 @@ body {
 }
 
 @media (min-width: 768px) {
+  :root {
+    --circle-size: clamp(7.5rem, calc(30vh - 4rem), 16rem);
+    --reveal-circle-size: calc(var(--circle-size) * 1.6);
+  }
+
   .overlay {
     background: rgba(0, 0, 0, 0.5);
     align-items: center;
@@ -399,19 +407,16 @@ body {
   }
 
   .modal__header {
-    justify-content: flex-start;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 2rem;
     padding: 0;
   }
 
   .modal__close {
-    position: absolute;
-    top: 1.25rem;
-    right: 1.25rem;
-    bottom: auto;
-    left: auto;
-    transform: none;
-    padding: 0.5rem;
+    position: static;
+    padding: 0;
   }
 
   .modal__close img {
@@ -420,6 +425,73 @@ body {
 
   .modal__content {
     flex: none;
+  }
+
+  .btn--rules {
+    right: 2rem;
+    left: auto;
+    bottom: 2rem;
+    top: auto;
+    transform: none;
+  }
+
+  .game {
+    padding-bottom: calc(2rem + 2.625rem + var(--circle-size) * 0.1);
+  }
+
+  .choices {
+    margin-top: auto;
+    margin-bottom: 2rem;
+  }
+
+  .scoreboard {
+    width: min(50vw, 700px);
+    max-width: none;
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+  }
+
+  .scoreboard__logo img {
+    height: 4.5rem;
+  }
+
+  .scoreboard__score {
+    padding: 0.75rem 2.5rem;
+    min-width: 8rem;
+  }
+
+  .scoreboard__value {
+    font-size: 3.5rem;
+  }
+
+  .reveal {
+    justify-content: space-around;
+    padding-top: 5rem;
+  }
+
+  .reveal__column {
+    width: auto;
+  }
+
+  .reveal__choice {
+    order: 2;
+  }
+
+  .reveal__label {
+    order: 1;
+  }
+
+  .reveal__result {
+    position: absolute;
+    left: 50%;
+    top: calc(8rem + var(--reveal-circle-size) * 0.5);
+    transform: translate(-50%, -50%);
+    width: auto;
+    z-index: 2;
+  }
+
+  .reveal__choice .choice__icon img {
+    width: 50%;
   }
 }
 
