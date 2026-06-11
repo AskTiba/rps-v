@@ -41,8 +41,7 @@ body {
 
 .game {
   width: 100%;
-  max-width: 375px;
-  padding: 2rem 1.5rem 1rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,7 +57,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem;
   border: 2px solid var(--gray-600);
   border-radius: 0.5rem;
 }
@@ -114,7 +113,7 @@ body {
   position: relative;
   width: 270px;
   height: 240px;
-  margin-top: -1.5rem;
+  margin-top: -9rem;
 }
 
 .choices__triangle {
@@ -193,43 +192,84 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
+  align-items: flex-start;
+  row-gap: 2rem;
+  column-gap: 0;
   width: 100%;
-  padding-top: 2rem;
+  position: relative;
 }
 
 .reveal__column {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
+  width: 50%;
 }
 
 .reveal__label {
   font-size: 0.875rem;
+  line-height: 1;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  order: 2;
 }
 
 .reveal__choice {
-  width: 6.25rem;
-  height: 6.25rem;
+  width: 7.5rem;
+  height: 7.5rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.reveal__choice--loading {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.reveal__choice .choice {
+  position: static;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  transform: none;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+.reveal__choice .choice__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 14px);
+  height: calc(100% - 14px);
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.reveal__choice .choice__icon img {
+  width: 2.25rem;
+  height: auto;
+  pointer-events: none;
 }
 
 .reveal__result {
-  order: 3;
+  display: none;
   width: 100%;
   text-align: center;
-  display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+}
+
+.reveal__result.show {
+  display: flex;
 }
 
 .reveal__result-text {
@@ -276,6 +316,7 @@ body {
   border-radius: 0.5rem;
   padding: 0.5rem 2rem;
   font-size: 1.125rem;
+  cursor: pointer;
 }
 
 /* =============================================
