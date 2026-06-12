@@ -231,6 +231,13 @@ function playRound(playerMove) {
       });
 
       updateScore(result);
+
+      if (result === 'win') {
+        userChoiceContainer.classList.add('reveal__choice--winner');
+      } else if (result === 'lose') {
+        houseChoiceContainer.classList.add('reveal__choice--winner');
+      }
+
       resultTimeout = null;
     }, 3000);
 
@@ -255,6 +262,8 @@ function resetGame() {
   resultDisplay.style.paddingBottom = '';
   userChoiceContainer.innerHTML = '';
   houseChoiceContainer.innerHTML = '';
+  userChoiceContainer.classList.remove('reveal__choice--winner');
+  houseChoiceContainer.classList.remove('reveal__choice--winner');
   resultDisplay.classList.remove('show');
 }
 
