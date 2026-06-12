@@ -158,6 +158,11 @@ body {
   filter: brightness(0.9);
 }
 
+.choice:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 3px;
+}
+
 .choice__icon {
   display: flex;
   align-items: center;
@@ -340,6 +345,11 @@ body {
   opacity: 0.8;
 }
 
+.btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
 .btn--play-again {
   background: var(--white);
   color: var(--navy-900);
@@ -428,6 +438,11 @@ body {
   width: 1.5rem;
   height: auto;
   display: block;
+}
+
+.modal__close:focus-visible {
+  outline: 2px solid var(--navy-900);
+  outline-offset: 2px;
 }
 
 .modal__content {

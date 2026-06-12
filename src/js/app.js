@@ -25,11 +25,32 @@ function announce(text) {
 
 function openRules() {
   rulesOverlay.classList.remove('hidden');
-  rulesOverlay.focus();
+  rulesClose.focus();
 }
 
 function closeRules() {
   rulesOverlay.classList.add('hidden');
+  rulesBtn.focus();
+}
+
+function trapFocus(e) {
+  if (!rulesOverlay.classList.contains('hidden')) {
+    const focusable = rulesOverlay.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (e.key === 'Tab') {
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
 }
 
 rulesBtn.addEventListener('click', openRules);
@@ -43,6 +64,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !rulesOverlay.classList.contains('hidden')) {
     closeRules();
   }
+  trapFocus(e);
 });
 
 const CHOICE_CONFIG = {
@@ -249,6 +271,8 @@ function playRound(playerMove) {
 
       updateScore(result);
 
+      playAgainBtn.focus();
+
       if (result === 'win') {
         userChoiceContainer.classList.add('reveal__choice--winner');
       } else if (result === 'lose') {
@@ -282,6 +306,11 @@ function resetGame() {
   userChoiceContainer.classList.remove('reveal__choice--winner');
   houseChoiceContainer.classList.remove('reveal__choice--winner');
   resultDisplay.classList.remove('show');
+
+  requestAnimationFrame(() => {
+    const firstChoice = choicesEl.querySelector('button');
+    if (firstChoice) firstChoice.focus();
+  });
 }
 
 playAgainBtn.addEventListener('click', resetGame);
