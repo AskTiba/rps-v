@@ -507,13 +507,20 @@ body {
   }
 
   .reveal {
-    justify-content: center;
-    gap: max(2rem, calc(100% / 3 - var(--reveal-circle-size)));
+    justify-content: space-between;
     padding-top: 5rem;
   }
 
   .reveal__column {
     width: auto;
+  }
+
+  .reveal__column:first-child {
+    transform: translateX(calc((100vw - 4rem - var(--reveal-circle-size) - min(50vw, 700px)) / 2));
+  }
+
+  .reveal__column:last-child {
+    transform: translateX(calc((min(50vw, 700px) - 100vw + 4rem + var(--reveal-circle-size)) / 2));
   }
 
   .reveal__choice {
