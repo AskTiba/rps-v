@@ -357,9 +357,9 @@ body {
   color: var(--white);
   border: 1px solid var(--gray-600);
   border-radius: 0.375rem;
-  padding: 0.25rem 0.625rem;
-  font-size: 0.625rem;
-  line-height: 1.4;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1;
   flex-shrink: 0;
 }
 
