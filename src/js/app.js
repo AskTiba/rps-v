@@ -14,6 +14,14 @@ const resultText = document.getElementById('result-text');
 const playAgainBtn = document.getElementById('play-again');
 const scoreElement = document.getElementById('score');
 const gameEl = document.querySelector('.game');
+const announcements = document.getElementById('announcements');
+
+function announce(text) {
+  announcements.textContent = '';
+  requestAnimationFrame(() => {
+    announcements.textContent = text;
+  });
+}
 
 function openRules() {
   rulesOverlay.classList.remove('hidden');
@@ -126,21 +134,26 @@ function renderChoices() {
   }
 }
 
-function setupMode() {
+function setupMode(announceChange) {
   const mode = MODES[currentMode];
   gameEl.classList.toggle('game--bonus', currentMode === 'bonus');
   modeToggle.textContent = mode.modeBtnText;
+  modeToggle.setAttribute('aria-label', `Switch to ${mode.modeBtnText} mode`);
   logoImg.src = mode.logo;
   logoContainer.setAttribute('aria-label', mode.ariaLabel);
   rulesImage.src = mode.rulesImg;
   renderChoices();
   loadScore();
+
+  if (announceChange) {
+    announce(`${mode.ariaLabel} mode`);
+  }
 }
 
 function toggleMode() {
   if (isPlaying) return;
   currentMode = currentMode === 'original' ? 'bonus' : 'original';
-  setupMode();
+  setupMode(true);
 }
 
 modeToggle.addEventListener('click', toggleMode);
@@ -205,6 +218,10 @@ function playRound(playerMove) {
     resultTimeout = setTimeout(() => {
       resultText.textContent = MESSAGES[result];
       resultDisplay.classList.add('show');
+
+      const playerLabel = CHOICE_CONFIG[playerMove].label;
+      const houseLabel = CHOICE_CONFIG[houseMove].label;
+      announce(`${MESSAGES[result]}. You picked ${playerLabel}. House picked ${houseLabel}.`);
 
       requestAnimationFrame(() => {
         const revealH = revealSection.offsetHeight;

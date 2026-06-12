@@ -21,7 +21,7 @@
       </div>
       <div class="scoreboard__score">
         <span class="scoreboard__label">Score</span>
-        <span class="scoreboard__value" id="score">0</span>
+        <span class="scoreboard__value" id="score" aria-live="polite" aria-atomic="true">0</span>
       </div>
     </header>
 
@@ -37,7 +37,7 @@
           <p class="reveal__label">The House Picked</p>
         </div>
         <div class="reveal__result" id="result-display">
-          <p class="reveal__result-text" id="result-text"></p>
+          <p class="reveal__result-text" id="result-text" role="status"></p>
           <button class="btn btn--play-again" id="play-again">Play Again</button>
         </div>
       </div>
@@ -45,6 +45,8 @@
   </div>
 
   <button class="btn btn--rules" id="rules-btn">Rules</button>
+
+  <div class="sr-only" aria-live="assertive" aria-atomic="true" id="announcements"></div>
 
   <div class="overlay hidden" id="rules-overlay" role="dialog" aria-modal="true" aria-labelledby="rules-title">
     <div class="modal">
