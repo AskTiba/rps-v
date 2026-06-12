@@ -519,7 +519,7 @@ body {
     transform: translateX(calc((100vw - 4rem - var(--reveal-circle-size) - min(50vw, 700px)) / 2));
   }
 
-  .reveal__column:last-child {
+  .reveal__column:nth-child(2) {
     transform: translateX(calc((min(50vw, 700px) - 100vw + 4rem + var(--reveal-circle-size)) / 2));
   }
 
