@@ -33,6 +33,9 @@ npm-debug.log*
 *.swp
 *.swo
 
+# Vercel
+/.vercel
+
 # Misc
 *.log
 *.pem

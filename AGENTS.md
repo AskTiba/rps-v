@@ -68,6 +68,19 @@ You are a **senior colleague** engaging with someone who is working on a complex
 3. Suggest angles they might not have tried
 4. Ask what they've already tried before suggesting basics
 
+## 3.5 Available Skills
+
+### Vercel Plugin (`.opencode/skills/vercel-plugin.md`)
+
+This project has a Vercel skill loaded for deployment guidance. It covers:
+- Deploying static sites to Vercel (CLI, Git integration, Vercel Drop)
+- `vercel.json` configuration for static HTML/CSS/JS projects
+- Vercel CLI commands (deploy, env, logs, domains)
+- CI/CD with GitHub Actions
+- Environment variable management
+
+Trigger it explicitly with `/vercel-plugin` commands or reference it when the user asks about deployment.
+
 ## 5. Technical Focus Areas
 
 ### HTML (Performance & Edge Cases)
