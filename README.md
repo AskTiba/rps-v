@@ -1,6 +1,8 @@
-# Frontend Mentor — Rock, Paper, Scissors
+# Rock, Paper, Scissors — Dual-Mode Game
 
-This is a solution to the [Rock, Paper, Scissors challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/rock-paper-scissors-game-pTgwgvgH). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
+A fully responsive Rock, Paper, Scissors game with a bonus Rock, Paper, Scissors, Lizard, Spock variant. Built with semantic HTML, modern CSS (custom properties, `clamp()`, `min()`/`max()`), and vanilla JavaScript ES modules — zero frameworks, zero build step.
+
+**Live demo:** [your-live-site-url.com](https://your-live-site-url.com) · **Challenge:** [Frontend Mentor](https://www.frontendmentor.io/challenges/rock-paper-scissors-game-pTgwgvgH)
 
 ## Table of contents
 
@@ -45,8 +47,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add your solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add your live site URL here](https://your-live-site-url.com)
+- Solution URL: [github.com/AskTiba/rps-v](https://github.com/AskTiba/rps-v)
+- Live Site URL: [your-live-site-url.com](https://your-live-site-url.com)
 
 ## My process
 
@@ -140,9 +142,10 @@ This project was built in collaboration with **Claude 4 (via opencode)**, an AI 
 
 ## Author
 
-- **Tibamwenda Anthony**
+- **Tibamwenda Anthony** — Frontend developer focused on accessible, performant, vanilla web experiences
+- GitHub — [@AskTiba](https://github.com/AskTiba)
 - Frontend Mentor — [@Tibson](https://www.frontendmentor.io/profile/Tibson)
-- GitHub — [@Tibson](https://github.com/Tibson)
+- LinkedIn — [Add your URL]
 
 ## Acknowledgments
 
