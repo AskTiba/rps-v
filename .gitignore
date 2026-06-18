@@ -36,6 +36,9 @@ npm-debug.log*
 # Vercel
 /.vercel
 
+# AI tooling config (local only)
+/.opencode/
+
 # Misc
 *.log
 *.pem
