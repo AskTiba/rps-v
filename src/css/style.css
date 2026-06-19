@@ -463,7 +463,10 @@ body {
 @media (min-width: 768px) {
   :root {
     --circle-size: clamp(7.5rem, calc(30vh - 4rem), 16rem);
-    --reveal-circle-size: calc(var(--circle-size) * 1.6);
+    --reveal-circle-size: min(
+      calc(var(--circle-size) * 1.6),
+      calc((100vw - 4rem - 14rem) / 2)
+    );
   }
 
   .overlay {
@@ -579,6 +582,61 @@ body {
   }
 }
 
+/* Tablet portrait — narrower viewports that still hit desktop layout */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .choices {
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
+
+  .reveal {
+    padding-top: 1rem;
+  }
+
+  .reveal__column {
+    gap: 1rem;
+  }
+
+  .reveal__result {
+    position: absolute;
+    left: 50%;
+    top: calc(7rem + var(--reveal-circle-size) * 0.9);
+    transform: translate(-50%, -50%);
+    width: auto;
+  }
+
+  .reveal__result-text {
+    font-size: 1.5rem;
+  }
+
+  .btn--rules {
+    right: 4rem;
+    bottom: 4rem;
+  }
+
+  .game {
+    padding-bottom: calc(1rem + 2.625rem + var(--circle-size) * 0.1);
+  }
+
+  .scoreboard {
+    width: min(80vw, 700px);
+    padding: 1rem 1.5rem;
+  }
+
+  .scoreboard__logo img {
+    height: 4rem;
+  }
+
+  .scoreboard__score {
+    padding: 0.625rem 2rem;
+    min-width: 7.5rem;
+  }
+
+  .scoreboard__value {
+    font-size: 3rem;
+  }
+}
+
 /* =============================================
    Bonus Mode — Pentagon Layout
    ============================================= */
@@ -625,7 +683,10 @@ body {
 @media (min-width: 768px) {
   .game--bonus {
     --circle-size: clamp(6rem, calc(22vh - 3rem), 12rem);
-    --reveal-circle-size: calc(var(--circle-size) * 1.6);
+    --reveal-circle-size: min(
+      calc(var(--circle-size) * 1.6),
+      calc((100vw - 4rem - 14rem) / 2)
+    );
   }
 }
 
